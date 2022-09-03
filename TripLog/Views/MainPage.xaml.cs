@@ -41,17 +41,22 @@ namespace TripLog.Views
                 new TripLogEntry
                 {
                     Title = "Golden Gate Bridge",
-                    Notes = "IFoggy, but beautiful.",
+                    Notes = "Foggy, but beautiful.",
                     Rating = 5,
                     Date = new DateTime(2019, 4, 26),
                     Latitude = 37.8268,
                     Longitude = -122.4798
                 },
 
-
             };
 
             trips.ItemsSource = items;
         }
+
+        void New_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NewEntryPage());
+        }
     }
+
 }
