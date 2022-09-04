@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="TripLog.Views.MainPage"
              Title="NadetLB - TagMyTrip">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="New" Clicked="New_Clicked" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <CollectionView x:Name="trips"
-                        SelectionMode="Single"
-                        SelectionChanged="Trips_SelectionChanged"
-                        >
+        <CollectionView 
+            x:Name="trips"
+            SelectionMode="Single"
+            ItemsSource="{Binding LogEntries}"
+            SelectionChanged="Trips_SelectionChanged">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">

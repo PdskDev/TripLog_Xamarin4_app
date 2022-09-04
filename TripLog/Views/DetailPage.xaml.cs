@@ -3,40 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TripLog.Models;
+
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
+using TripLog.Models;
+using TripLog.ViewModels;
+using Xamarin.Forms.Maps;
 
 namespace TripLog.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DetailPage : ContentPage
     {
+        DetailViewModel ViewModel => BindingContext as DetailViewModel;
         public DetailPage(TripLogEntry entry)
         {
             InitializeComponent();
 
-            map.MoveToRegion(
-                MapSpan.FromCenterAndRadius(
+            BindingContext = new DetailViewModel(entry);
+
+            map.MoveToRegion(MapSpan.FromCenterAndRadius(
                 new Position(
-                    entry.Latitude,
-                    entry.Longitude),
-                Distance.FromMiles(.5)
-                )
-                );
+                    ViewModel.Entry.Latitude,
+                    ViewModel.Entry.Longitude),
+                Distance.FromMiles(.5)));
 
             map.Pins.Add(new Pin
             {
                 Type = PinType.Place,
-                Label = entry.Title,
-                Position = new Position(entry.Latitude, entry.Longitude)
+                Label = ViewModel.Entry.Title,
+                Position = new Position(
+                    ViewModel.Entry.Latitude, 
+                    ViewModel.Entry.Longitude)
             });
-
-            title.Text = entry.Title;
-            date.Text = entry.Date.ToString("M");
-            rating.Text = $"{entry.Rating} star rating";
-            notes.Text = entry.Notes;
         }
     }
 }
