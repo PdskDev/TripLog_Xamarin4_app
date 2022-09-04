@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace TripLog.ViewModels
@@ -15,8 +18,40 @@ namespace TripLog.ViewModels
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public bool HasErrors => _errors?.Any(x => x.value?.Any() == true) == true;
+        public bool HasErrors => _errors?.Any(x => x.Value?.Any() == true) == true;
 
-        public IE
+        public IEnumerable GetErrors(string propertyName)
+        {
+            if(string.IsNullOrWhiteSpace(propertyName))
+            {
+                return _errors.SelectMany(x => x.Value);
+            }
+
+            if(_errors.ContainsKey(propertyName) && _errors[propertyName].Any())
+            {
+                return _errors[propertyName];
+            }
+
+            return new List<string>();
+        }
+
+        protected void Validate(Func<bool> rule, string error, [CallerMemberName] string propertyName = "")
+        {
+            if (string.IsNullOrWhiteSpace(propertyName)) return;
+
+            if(_errors.ContainsKey(propertyName))
+            {
+                _errors.Remove(propertyName);
+            }
+
+            if(rule() == false)
+            {
+                _errors.Add(propertyName, new List<string> { error });
+            }
+
+            OnPropertyChanged(nameof(HasErrors));
+
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        }
     }
 }

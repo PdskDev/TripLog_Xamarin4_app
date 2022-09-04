@@ -13,11 +13,11 @@
         <TableView Intent="Form">
             <TableView.Root>
                 <TableSection>
-                    <EntryCell Label="Title" Text="{Binding Title}" />
+                    <EntryCell x:Name="title" Label="Title" Text="{Binding Title}" />
                     <EntryCell Label="Latitude" Text="{Binding Latitude}" Keyboard="Numeric" />
                     <EntryCell Label="Longitude" Text="{Binding Longitude}" Keyboard="Numeric" />
                     <EntryCell Label="Date" Text="{Binding Date, StringFormat='{0:d}'}" />
-                    <EntryCell Label="Rating" Text="{Binding Rating}" Keyboard="Numeric" />
+                    <EntryCell x:Name="rating"  Label="Rating" Text="{Binding Rating}" Keyboard="Numeric" />
                     <EntryCell Label="Notes" Text="{Binding Notes}" />
                 </TableSection>
             </TableView.Root>
