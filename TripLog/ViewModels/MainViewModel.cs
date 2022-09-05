@@ -55,12 +55,12 @@ namespace TripLog.ViewModels
 
                 new TripLogEntry
                 {
-                    Title = "Le Mans ",
-                    Notes = "Ville où il fait bon vivre!",
+                    Title = "Tour Effeil",
+                    Notes = "La Grande Dame de Fer",
                     Rating = 8,
                     Date = new DateTime(2019, 7, 16),
-                    Latitude =  47.988178,
-                    Longitude = 0.160791
+                    Latitude =   48.807794,
+                    Longitude = 2.489960
                 },
 
 
